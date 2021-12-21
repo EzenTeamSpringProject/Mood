@@ -14,10 +14,6 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexController {
 
-    private final MemberService memberService;
-    private final HttpSession httpSession;
-
-
     @GetMapping("/")
     public String index(Model model, @LoginMember SessionMember member) {
         if (member != null) {

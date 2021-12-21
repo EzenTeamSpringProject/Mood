@@ -34,7 +34,7 @@ public class Member extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ROLE role;
+    private Role role;
 
 //    @OneToMany(mappedBy ="member",cascade = CascadeType.ALL,orphanRemoval = true)
 //    private List<WishContent> wishes = new ArrayList<>();
@@ -48,12 +48,12 @@ public class Member extends BaseTimeEntity {
     @PrePersist
     void prePersist(){
         if (role == null) {
-            role = ROLE.USER;
+            role = Role.MEMBER;
         }
     }
 
     @Builder
-    public Member(String name, String password, String email, String picture, ROLE role) {
+    public Member(String name, String password, String email, String picture, Role role) {
         this.name = name;
         this.password = password;
         this.email = email;
@@ -83,5 +83,6 @@ public class Member extends BaseTimeEntity {
     public SessionMember toSessionMember() {
         return new SessionMember(this);
     }
+
 
 }

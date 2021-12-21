@@ -1,7 +1,7 @@
 package com.ezen.mood.config.auth.dto;
 
 import com.ezen.mood.domain.member.Member;
-import com.ezen.mood.domain.member.ROLE;
+import com.ezen.mood.domain.member.Role;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -80,7 +80,7 @@ public class OAuthAttributes {
                 .name(name)
                 .email(email)
                 .picture(picture)
-                .role(ROLE.USER)
+                .role(Role.MEMBER)
                 .build();
     }
 }

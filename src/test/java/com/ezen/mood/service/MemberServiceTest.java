@@ -28,7 +28,7 @@ class MemberServiceTest {
                 .email("asdas@naver.com")
                 .build();
 
-        memberService.save(member);
+
 
         Member findMember = memberService.find(member.getId());
 
@@ -46,11 +46,11 @@ class MemberServiceTest {
                 .email("asdas@naver.com")
                 .build();
 
-        memberService.save(member);
+
 
 
         Member findMember = memberService.find(member.getId());
-        memberService.delete(findMember);
+        memberService.withdraw(findMember);
 
         List<Member> all = memberRepository.findAll();
 
