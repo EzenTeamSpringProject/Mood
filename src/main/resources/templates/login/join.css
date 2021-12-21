@@ -1,0 +1,90 @@
+:root {
+  --color-white: #ffffff;
+  --color-light-white: #eeeeee;
+  --color-dark-white: #bdbdbd;
+  --color-light-grey: grey;
+  --color-dark-grey: #222222;
+  --color-black: #000000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+header {
+  width: 70%;
+  margin: 10px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.logo {
+  font-family: 'nanumsquare';
+  font-size: 24px;
+}
+
+.logo a {
+  font-weight: 900;
+  color: royalblue;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#join {
+  background-color: royalblue;
+  color: white;
+}
+
+main {
+  width: 70%;
+  margin: 150px auto;
+  text-align: center;
+}
+
+h2 {
+  font-family: 'nanumsquare';
+  margin: 30px;
+}
+
+.joinBtn {
+  margin: 20px auto;
+  padding: 12px 100px;
+  font-size: 16px;
+  background-color: white;
+  display: flex;
+}
+
+.joinBtn img {
+  margin: 0 10px;
+  width: 20px;
+}
+
+#google {
+  padding: 12px 107px;
+  border: 1px solid lightgray;
+}
+
+#kakao {
+  background-color: rgb(254, 229, 0);
+}
+
+#naver {
+  background-color: rgb(3, 199, 90);
+  color: white;
+}
