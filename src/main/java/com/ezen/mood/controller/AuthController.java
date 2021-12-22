@@ -1,6 +1,8 @@
 package com.ezen.mood.controller;
 
+import com.ezen.mood.config.auth.LoginMember;
 import com.ezen.mood.config.auth.dto.AuthDto;
+import com.ezen.mood.config.auth.dto.SessionMember;
 import com.ezen.mood.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,9 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @RequestMapping("/auth")
@@ -24,8 +23,8 @@ public class AuthController {
 
 //    회원가입
     @GetMapping("/join")
-    public String joinForm(@ModelAttribute("authDto") AuthDto authDto, HttpServletRequest request) {
-        if(request.getSession(false)!=null){
+    public String joinForm(@ModelAttribute("authDto") AuthDto authDto, @LoginMember SessionMember member) {
+        if(member!=null){
             return "redirect:/";
         }
         return "auth/join";
@@ -51,8 +50,8 @@ public class AuthController {
 //    로그인
 
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute("authDto") AuthDto authDto,HttpServletRequest request) {
-        if(request.getSession(false)!=null){
+    public String loginForm(@ModelAttribute("authDto") AuthDto authDto, @LoginMember SessionMember member) {
+        if(member!=null){
             return "redirect:/";
         }
         return "auth/login";

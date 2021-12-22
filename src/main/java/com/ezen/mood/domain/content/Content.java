@@ -1,47 +1,55 @@
 package com.ezen.mood.domain.content;
 
-import com.ezen.mood.domain.content.enums.KIND;
+import com.ezen.mood.domain.content.company.ContentCompany;
+import com.ezen.mood.domain.content.enums.Kind;
 import com.ezen.mood.domain.content.genre.ContentGenre;
-import com.ezen.mood.domain.reply.ContentReply;
+import com.ezen.mood.domain.content.review.OneLineReview;
 import com.ezen.mood.domain.util.BaseTimeEntity;
-import com.ezen.mood.domain.content.enums.RATING;
-import com.ezen.mood.domain.util.ContentCast;
-import com.ezen.mood.domain.util.ContentCompany;
+import com.ezen.mood.domain.content.enums.Rating;
+import com.ezen.mood.domain.content.cast.ContentCast;
+
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-//@Entity
-public class Content extends BaseTimeEntity {
+@Entity
+public class Contents extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "content_id")
     private long id;
 
+    @Column(nullable = false)
     private String title;
 
-    @OneToMany(mappedBy = "content")
-    private List<Poster> posters = new ArrayList<>();
-
     @Column(nullable = false)
-    private String introduction;
+    private String description;
 
     @Column(nullable = false)
     private LocalDate releaseDate;
 
     @Enumerated(EnumType.STRING)
-    private RATING rating;
+    @Column(nullable = false)
+    private Rating rating;
 
     @Enumerated(EnumType.STRING)
-    private KIND kind;
+    @Column(nullable = false)
+    private Kind kind;
 
-
+    @Column
     private Long like;
+
+    @Column
+    private String posterPath;
 
     @OneToMany(mappedBy = "content")
     private List<ContentCompany> providers = new ArrayList<>();
@@ -53,7 +61,17 @@ public class Content extends BaseTimeEntity {
     private List<ContentGenre> contentGenres = new ArrayList<>();
 
     @OneToMany(mappedBy = "content")
-    private List<ContentReply> replies = new ArrayList<>();
+    private List<OneLineReview> replies = new ArrayList<>();
 
 
+    @Builder
+    public Contents(String title, String description, LocalDate releaseDate, Rating rating, Kind kind, Long like, String posterPath) {
+        this.title = title;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.rating = rating;
+        this.kind = kind;
+        this.like = like;
+        this.posterPath = posterPath;
+    }
 }
