@@ -1,6 +1,5 @@
 package com.ezen.mood.domain.review;
 
-import com.ezen.mood.domain.content.Content;
 import com.ezen.mood.domain.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

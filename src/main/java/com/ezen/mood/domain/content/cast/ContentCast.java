@@ -1,13 +1,15 @@
-package com.ezen.mood.domain.util;
+package com.ezen.mood.domain.content.cast;
 
 
 import com.ezen.mood.domain.content.Content;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
 @Getter
-//@Entity
+@Entity
 public class ContentCast {
 
     @Id

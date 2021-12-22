@@ -1,20 +1,21 @@
-package com.ezen.mood.domain.util;
+package com.ezen.mood.domain.content.cast;
 
 
-import com.ezen.mood.domain.content.Content;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 @Getter
-//@Entity
+@Entity
 public class Cast {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "person_id")
+    @Column(name = "cast_id")
     private Long id;
 
     private String name;

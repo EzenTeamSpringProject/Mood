@@ -3,6 +3,7 @@ package com.ezen.mood.domain.member;
 import com.ezen.mood.config.auth.dto.SessionMember;
 
 import com.ezen.mood.domain.util.BaseTimeEntity;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseTimeEntity {
 
     @Id
@@ -44,6 +45,7 @@ public class Member extends BaseTimeEntity {
 //
 //    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL,orphanRemoval = true)
 //    private List<LoveReview> likeReviews = new ArrayList<>();
+
 
     @PrePersist
     void prePersist(){

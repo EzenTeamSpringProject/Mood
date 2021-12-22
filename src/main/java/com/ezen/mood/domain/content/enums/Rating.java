@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum RATING {
+public enum Rating {
    RA("ALL","전체 이용가"),
    R12("12","12세 관람가"),
    R15("15","15세 관람가"),

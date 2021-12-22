@@ -21,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Contents extends BaseTimeEntity {
+public class Content extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +46,7 @@ public class Contents extends BaseTimeEntity {
     private Kind kind;
 
     @Column
-    private Long like;
+    private Long love;
 
     @Column
     private String posterPath;
@@ -65,13 +65,13 @@ public class Contents extends BaseTimeEntity {
 
 
     @Builder
-    public Contents(String title, String description, LocalDate releaseDate, Rating rating, Kind kind, Long like, String posterPath) {
+    public Content(String title, String description, LocalDate releaseDate, Rating rating, Kind kind, Long love, String posterPath) {
         this.title = title;
         this.description = description;
         this.releaseDate = releaseDate;
         this.rating = rating;
         this.kind = kind;
-        this.like = like;
+        this.love = love;
         this.posterPath = posterPath;
     }
 }

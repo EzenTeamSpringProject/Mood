@@ -1,7 +1,6 @@
 package com.ezen.mood.domain.member;
 
 import com.ezen.mood.domain.content.Content;
-import com.ezen.mood.domain.member.Member;
 
 import javax.persistence.*;
 
