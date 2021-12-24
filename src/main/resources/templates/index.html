@@ -13,6 +13,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
     <script
       src="https://kit.fontawesome.com/072f44ed92.js"
       crossorigin="anonymous"
@@ -25,7 +26,7 @@
       <div class="logo">
         <a href="/">Mood</a>
       </div>
-      <div>
+      <div class="member">
         <button
           sec:authorize="isAnonymous()"
           id="login"
@@ -40,25 +41,26 @@
         >
           회원가입
         </button>
-        <img
-          sec:authorize="isAuthenticated()"
-          th:src="${member.picture}"
-          style="
-            border-radius: 15px;
-            width: 40px;
-            height: 40px;
-            display: inline-block;
-          "
-        />
-        <button
-          sec:authorize="isAuthenticated()"
-          id="logout"
-          onclick="location.href='/auth/logout'"
-        >
-          로그아웃
-        </button>
+        <div sec:authorize="isAuthenticated()" id="profile">
+          <button>
+            <img sec:authorize="isAuthenticated()" th:src="${member.picture}" />
+          </button>
+          <ul id="dropDown" class="hidden">
+            <li><a href="#">새 글 작성</a></li>
+            <li><a href="#">마이페이지</a></li>
+            <li><a href="/auth/logout">로그아웃</a></li>
+          </ul>
+        </div>
       </div>
     </header>
+
+    <!-- <button
+      sec:authorize="isAuthenticated()"
+      id="logout"
+      onclick="location.href='/auth/logout'"
+    >
+      로그아웃
+    </button> -->
 
     <!-- Navbar -->
     <nav>
@@ -287,5 +289,8 @@
         </article>
       </section>
     </main>
+
+    <script src="js/main.js"></script>
+    <script src="../static/js/main.js"></script>
   </body>
 </html>
