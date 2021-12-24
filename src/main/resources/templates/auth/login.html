@@ -40,18 +40,22 @@
 					</div>
 					<div>
 						<p>이메일</p>
-						<input type="email"
+						<input required
+							   type="email"
 						       th:field="*{email}"
 						       th:value="*{email}"
-						       th:classappend="${param.error!=null} ? 'border-error' : '' "/>
+						       th:classappend="${param.error!=null} ? 'border-error' : '' " />
 					</div>
 					<div>
 						<p>비밀번호</p>
-						<input type="password" name=""
+						<input required
+							   type="password" name=""
 						       th:field="*{password}"
-						       th:classappend="${param.error!=null} ? 'border-error' : ''"/>
+						       th:classappend="${param.error!=null} ? 'border-error' : ''" />
 					</div>
-					<input type="submit" style="cursor: pointer" value="로그인"/>
+					<div>
+						<input type="submit" value="로그인"/>
+					</div>
 				</form>
 			</div>
 			

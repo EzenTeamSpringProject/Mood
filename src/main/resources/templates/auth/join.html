@@ -42,17 +42,19 @@
 					</div>
 					<div>
 						<p>이메일</p>
-						<input type="email" th:field="*{email}" th:errorclass="text-error"/>
+						<input required type="email" th:field="*{email}" th:errorclass="text-error" />
 					</div>
 					<div>
 						<p>비밀번호</p>
-						<input type="password" th:field="*{password}" th:errorclass="text-error"/>
+						<input required type="password" th:field="*{password}" th:errorclass="text-error" />
 					</div>
 					<div>
 						<p>이름</p>
-						<input type="text" th:field="*{name}" th:errorclass="field-error"/>
+						<input required type="text" th:field="*{name}" th:errorclass="field-error" />
 					</div>
-					<input type="submit" style="cursor: pointer" value="가입하기"/>
+					<div>
+						<input type="submit" value="가입하기"/>
+					</div>
 				</form>
 			</div>
 			
