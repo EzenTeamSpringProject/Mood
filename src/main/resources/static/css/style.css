@@ -27,7 +27,7 @@ header {
 
 .logo {
   font-family: 'nanumsquare';
-  font-size: 24px;
+  font-size: 30px;
 }
 
 .logo a {
@@ -39,7 +39,13 @@ a {
   text-decoration: none;
 }
 
-button {
+.member {
+  display: flex;
+  align-items: center;
+}
+
+.member button {
+  margin-left: 8px;
   padding: 8px;
   border: none;
   border-radius: 4px;
@@ -49,6 +55,58 @@ button {
 #join {
   background-color: royalblue;
   color: white;
+}
+
+#profile {
+  border-radius: 15px;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+#profile button {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: none;
+}
+
+#profile img {
+  width: 100%;
+}
+
+#dropDown {
+  position: absolute;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  box-shadow: rgb(0 0 0 / 10%) 0px 0px 8px;
+}
+
+.hidden {
+  display: none;
+}
+
+#dropDown li {
+  list-style: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  width: 120px;
+  height: 40px;
+  background-color: var(--color-white);
+  text-align: center;
+  font-size: 14px;
+}
+
+#dropDown li:hover {
+  background: var(--color-light-white);
+}
+
+#dropDown a {
+  line-height: 40px;
+  color: var(--color-black);
 }
 
 nav {

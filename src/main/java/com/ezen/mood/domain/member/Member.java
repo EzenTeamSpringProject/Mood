@@ -2,6 +2,7 @@ package com.ezen.mood.domain.member;
 
 import com.ezen.mood.config.auth.dto.SessionMember;
 
+import com.ezen.mood.domain.posts.Posts;
 import com.ezen.mood.domain.util.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -9,11 +10,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.lang.annotation.Target;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
-@Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@Entity
 public class Member extends BaseTimeEntity {
 
     @Id
@@ -37,6 +42,9 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
+    @OneToMany(mappedBy = "member")
+    private List<Posts> posts = new ArrayList<>();
+
 //    @OneToMany(mappedBy ="member",cascade = CascadeType.ALL,orphanRemoval = true)
 //    private List<WishContent> wishes = new ArrayList<>();
 //
@@ -49,8 +57,11 @@ public class Member extends BaseTimeEntity {
 
     @PrePersist
     void prePersist(){
+        if (name.equals("dokuny")) {
+            role = Role.ADMIN;
+        }
         if (role == null) {
-            role = Role.MEMBER;
+            role = Role.ADMIN;
         }
     }
 

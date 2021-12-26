@@ -3,7 +3,7 @@ package com.ezen.mood.controller;
 import com.ezen.mood.config.auth.LoginMember;
 import com.ezen.mood.config.auth.dto.AuthDto;
 import com.ezen.mood.config.auth.dto.SessionMember;
-import com.ezen.mood.service.MemberService;
+import com.ezen.mood.service.common.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,7 +23,7 @@ public class AuthController {
 
 //    회원가입
     @GetMapping("/join")
-    public String joinForm(@ModelAttribute("authDto") AuthDto authDto, @LoginMember SessionMember member) {
+    public String joinForm(@ModelAttribute("authDto") AuthDto authDto, @LoginMember SessionMember member) {;
         if(member!=null){
             return "redirect:/";
         }
@@ -48,21 +48,11 @@ public class AuthController {
     }
 
 //    로그인
-
     @GetMapping("/login")
     public String loginForm(@ModelAttribute("authDto") AuthDto authDto, @LoginMember SessionMember member) {
         if(member!=null){
             return "redirect:/";
         }
-        return "auth/login";
-    }
-
-    @PostMapping("/login")
-    public String login(@ModelAttribute("authDto") @Validated AuthDto authDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "auth/login";
-        }
-
         return "auth/login";
     }
 
@@ -72,26 +62,5 @@ public class AuthController {
         return "auth/denied";
     }
 
-
-//    @PostMapping("/login")
-//    public String login(@ModelAttribute @Validated AuthDto authDto, BindingResult bindingResult, HttpServletRequest request) {
-////        if (bindingResult.hasErrors()) {
-////            return "login/login";
-////        }
-////        System.out.println("1번");
-////        Member member = memberService.checkLogin(authDto);
-////        System.out.println("2번");
-////        if (member == null) {
-////            bindingResult.reject("loginFail","아이디 또는 패스워드가 올바르지 않습니다");
-////            System.out.println("멤버가 없음");
-////            return "login/login";
-////        }
-////        System.out.println("3번");
-////        SessionMember sessionMember = member.toSessionMember();
-////        System.out.println("4번");
-////        request.getSession().setAttribute("member",sessionMember);
-////        System.out.println("5번");
-//        return "redirect:/";
-//    }
 
 }

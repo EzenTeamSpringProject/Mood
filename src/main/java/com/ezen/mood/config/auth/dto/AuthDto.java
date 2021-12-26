@@ -35,7 +35,7 @@ public class AuthDto {
                 .password(passwordEncoder.encode(password))
                 .name(name)
                 .picture("/img/defaultProfile.png")
-                .role(Role.MEMBER)
+                .role(null)
                 .build();
     }
 }

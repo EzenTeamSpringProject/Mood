@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<title>제공업체 리스트</title>
+	</head>
+	<body>
+<!--		header-->
+<!--		누르면 관리페이지로 이동하는 관리이름. 메인의 mood같은 느낌으로다가-->
+		<a href="/admin"><h1>관리</h1></a>
+		
+		<form th:action="@{/admin/{gccUrl}/delete(gccUrl=${gccUrl})}" method="post">
+			<button type="button" th:onclick="|location.href='@{/admin/{gccUrl}/add(gccUrl=${gccUrl})}'|">등록</button>
+
+			<input type="submit" th:value="삭제">
+			<div class="layout">
+				<table>
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>한글 이름</th>
+							<th>영어 이름</th>
+							<th>삭제</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="gcc:${gccs}">
+							<td><a th:text="${gcc.id}">번호</a></td>
+							<td th:text="${gcc.krname}">한글</td>
+							<td th:text="${gcc.engname}">영문</td>
+							<td><input type="checkbox" th:name="deleteId" th:value="${gcc.id}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</form>
+	</body>
+</html>

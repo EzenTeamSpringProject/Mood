@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<title>장르,회사,카테고리 등록 폼</title>
+	</head>
+	<body>
+		<form action="" method="post" th:object="${dto}">
+			<span>한글 이름</span>
+			<input type="text" th:name="krname">
+			<span>영문 이름</span>
+			<input type="text" th:name="engname">
+			<input type="submit">
+		</form>
+	
+	</body>
+</html>

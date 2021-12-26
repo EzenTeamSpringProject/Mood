@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 //@Entity
-public class Review extends BaseTimeEntity {
+public class Post extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class Review extends BaseTimeEntity {
 
 
     @Builder
-    public Review(String title, Member member, String contents) {
+    public Post(String title, Member member, String contents) {
         this.title = title;
         this.member = member;
         this.contents = contents;

@@ -34,23 +34,23 @@
 			<h2>회원가입</h2>
 			<div class="emailLogin" >
 				<form th:action th:object="${authDto}" method="post">
-					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+<!--					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
 					<div th:if="${#fields.hasGlobalErrors()}">
-						<p class="border-error"
+						<p class="text-error"
 						   th:each="err : ${#fields.globalErrors()}"
 						   th:text="${err}">전체 오류 메시지</p>
 					</div>
 					<div>
 						<p>이메일</p>
-						<input type="email" th:field="*{email}" th:errorclass="text-error"/>
+						<input type="email" th:field="*{email}" th:errorclass="border-error"/>
 					</div>
 					<div>
 						<p>비밀번호</p>
-						<input type="password" th:field="*{password}" th:errorclass="text-error"/>
+						<input type="password" th:field="*{password}" th:errorclass="border-error"/>
 					</div>
 					<div>
 						<p>이름</p>
-						<input type="text" th:field="*{name}" th:errorclass="field-error"/>
+						<input type="text" th:field="*{name}" th:errorclass="border-error"/>
 					</div>
 					<input type="submit" style="cursor: pointer" value="가입하기"/>
 				</form>

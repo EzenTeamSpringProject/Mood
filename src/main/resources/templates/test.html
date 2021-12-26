@@ -5,12 +5,11 @@
 		<title>Mood</title>
 	</head>
 	<body>
-
-		<button type="button" th:if="${member != null}"><a href="/logout" th:text="로그아웃">로그아웃</a></button>
-		<button type="button" th:if="${member == null}"><a href="/oauth2/authorization/google" th:text="구글로그인">구글로그인</a></button>
-		<button type="button" th:if="${member == null}"><a href="/oauth2/authorization/naver" th:text="네이버로그인">네이버로그인</a></button>
-		<button type="button" th:if="${member == null}"><a href="/oauth2/authorization/kakao" th:text="카카오로그인">카카오로그인</a></button>
-		<span th:if="${member != null}" th:text="${member.name}"></span>
-		
+		<form action="/test" method="post">
+			<select th:name="name">
+				<option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre.getValue()}"></option>
+			</select>
+			<input type="submit" value="등록">
+		</form>
 	</body>
 </html>

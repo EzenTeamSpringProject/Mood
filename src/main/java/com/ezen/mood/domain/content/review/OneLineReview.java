@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
+//@Getter
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@Entity
 public class OneLineReview extends BaseTimeEntity {
 
     @Id

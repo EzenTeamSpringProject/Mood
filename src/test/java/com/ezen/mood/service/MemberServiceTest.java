@@ -2,6 +2,7 @@ package com.ezen.mood.service;
 
 import com.ezen.mood.domain.member.Member;
 import com.ezen.mood.repository.MemberRepository;
+import com.ezen.mood.service.common.MemberService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,8 @@ import java.util.List;
 @SpringBootTest
 class MemberServiceTest {
 
-    @Autowired MemberService memberService;
+    @Autowired
+    MemberService memberService;
     @Autowired
     MemberRepository memberRepository;
 

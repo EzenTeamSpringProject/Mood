@@ -1,4 +1,4 @@
-package com.ezen.mood.service;
+package com.ezen.mood.service.common;
 
 import com.ezen.mood.config.auth.dto.AuthDto;
 
