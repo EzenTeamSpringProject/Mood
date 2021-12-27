@@ -23,9 +23,10 @@
 	<body>
 		<div class="layout">
 			<form th:action method="post" th:object="${post}" enctype="multipart/form-data">
+				<input hidden th:value="*{id}">
 				<input id="title" name="title" type="text" th:field="*{title}">
 				<textarea id="content" name="content" th:field="*{content}"></textarea>
-				<input type="file"  multiple="multiple" name="imageFiles">
+				<input type="file"  multiple="multiple" name="imageFiles" >
 				<button type="submit">수정</button>
 			</form>
 		</div>

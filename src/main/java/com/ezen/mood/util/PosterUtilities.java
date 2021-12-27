@@ -21,17 +21,17 @@ public class PosterUtilities {
         return fileDir + filename;
     }
 
-    public List<Poster> storePosters(List<MultipartFile> multipartFiles, Content content) throws IOException {
+    public List<Poster> storePosters(List<MultipartFile> multipartFiles, Content content,PosterRepository posterRepository) throws IOException {
         List<Poster> storeFileResult = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
             if (!multipartFile.isEmpty()) {
-                storeFileResult.add(storePoster(multipartFile,content));
+                storeFileResult.add(storePoster(multipartFile,content,posterRepository));
             }
         }
         return storeFileResult;
     }
 
-    public Poster storePoster(MultipartFile multipartFile, Content content) throws IOException {
+    public Poster storePoster(MultipartFile multipartFile, Content content,PosterRepository posterRepository) throws IOException {
 //        들어오는 멀티파트 파일이 비어있는지 체크
         if (multipartFile.isEmpty()) {
             return null;
@@ -50,8 +50,9 @@ public class PosterUtilities {
                 .filepath(getFullPath(storeFileName))
                 .build();
 //        엔티티에 컨텐츠 등록
-        poster.setContent(content);
-        return poster;
+
+        Poster savePoster = posterRepository.save(poster);
+        return savePoster;
     }
 
     private String createStoreFileName(String originalFilename) {

@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()// 권한별 url 설정
                         .antMatchers("/", "/css/**", "/img/**", "/js/**","/auth/**").permitAll() // 권한 상관없이 모두 Ok
                         .antMatchers("/api/v1/**").hasRole(Role.MEMBER.name()) //USER 권한 url
-                        .antMatchers("/api/v1/**").hasRole(Role.ADMIN.name()) // ADMIN 권한 url
+                        .antMatchers("/admin/**").hasRole(Role.ADMIN.name()) // ADMIN 권한 url
                         .anyRequest().permitAll()
                 .and()
                     .logout()

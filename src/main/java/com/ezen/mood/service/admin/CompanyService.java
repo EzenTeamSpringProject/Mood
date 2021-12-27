@@ -42,10 +42,8 @@ public class CompanyService {
         Optional<Company> original = companyRepository.findById(newEntity.getId());
 
         original.ifPresent(company ->{
-            original.ifPresent(genre ->{
-                genre.setEngname(newEntity.getEngname());
-                genre.setKrname(newEntity.getKrname());
-            });
+                company.setEngname(newEntity.getEngname());
+                company.setKrname(newEntity.getKrname());
         });
     }
 }

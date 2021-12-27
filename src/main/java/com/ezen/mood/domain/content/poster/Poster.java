@@ -5,10 +5,12 @@ import com.ezen.mood.domain.posts.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+import java.io.File;
 
-
+@Slf4j
 @Getter
 @NoArgsConstructor
 @Entity
@@ -18,10 +20,6 @@ public class Poster {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="files_id")
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name="content_id")
-    private Content content;
 
     @Column
     private String orginalname;
@@ -33,15 +31,19 @@ public class Poster {
     private String filepath;
 
     @Builder
-    public Poster(Content content, String orginalname, String filename, String filepath) {
-        this.content = content;
+    public Poster(String orginalname, String filename, String filepath) {
         this.orginalname = orginalname;
         this.filename = filename;
         this.filepath = filepath;
     }
 
-    public void setContent(Content content) {
-        this.content = content;
+
+    public void deletePhysicFile() {
+        File file = new File(filepath);
+        log.info("file {}",file.getPath());
+        if (file.exists()) {
+            file.delete();
+        }
     }
 
 }

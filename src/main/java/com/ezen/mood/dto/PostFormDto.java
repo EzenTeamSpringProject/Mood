@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class PostFormDto {
+    private String id;
     private String title;
     private String content;
     private List<MultipartFile> imageFiles;

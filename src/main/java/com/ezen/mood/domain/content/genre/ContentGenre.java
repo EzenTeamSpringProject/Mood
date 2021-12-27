@@ -3,11 +3,13 @@ package com.ezen.mood.domain.content.genre;
 import com.ezen.mood.domain.content.Content;
 import com.ezen.mood.domain.content.company.Company;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
+@Getter
 @Entity
 public class ContentGenre {
     @Id
@@ -25,7 +27,7 @@ public class ContentGenre {
 
     public void putContent(Content content) {
         this.content = content;
-        content.getGenres().add(this);
+//        content.getGenres().add(this);
     }
 
     public void putGerne(Genre genre) {

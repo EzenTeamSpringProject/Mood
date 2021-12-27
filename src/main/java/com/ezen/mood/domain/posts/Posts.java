@@ -32,7 +32,7 @@ public class Posts extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<Files> files = new ArrayList<>();
 
 
@@ -47,4 +47,5 @@ public class Posts extends BaseTimeEntity {
         this.content = content;
         this.member = member;
     }
+
 }

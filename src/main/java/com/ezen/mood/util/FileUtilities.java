@@ -44,9 +44,8 @@ public class FileUtilities {
                 .filepath(getFullPath(storeFileName))
                 .build();
         file.setPost(post);
-//        Files saveFile = filesRepository.save(file);
-//        return saveFile;
-        return file;
+        Files saveFile = filesRepository.save(file);
+        return saveFile;
     }
 
     private String createStoreFileName(String originalFilename) {

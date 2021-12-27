@@ -3,11 +3,13 @@ package com.ezen.mood.domain.content.company;
 
 import com.ezen.mood.domain.content.Content;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
+@Getter
 @Entity
 public class ContentCompany {
     @Id
@@ -26,7 +28,8 @@ public class ContentCompany {
 //    연관관계 편의 메소드 필요
     public void putContent(Content content) {
         this.content = content;
-        content.getCompanies().add(this);
+
+//        content.getCompanies().add(this);
     }
 
     public void putCompany(Company company) {

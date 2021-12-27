@@ -7,12 +7,15 @@ import com.ezen.mood.domain.util.BaseTimeEntity;
 import com.ezen.mood.domain.content.enums.Rating;
 
 import com.ezen.mood.domain.content.poster.Poster;
+import com.ezen.mood.dto.ContentFormDto;
+import com.ezen.mood.dto.ContentViewDto;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Setter
@@ -27,6 +30,7 @@ public class Content extends BaseTimeEntity {
 
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     private LocalDate releaseDate;
@@ -41,13 +45,16 @@ public class Content extends BaseTimeEntity {
     @Column
     private Long love;
 
-    @OneToMany(mappedBy = "content",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Poster> poster = new ArrayList<>();
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name="poster_id")
+    private Poster poster;
 
     @OneToMany(mappedBy = "content")
     private List<ContentCompany> companies = new ArrayList<>();
 
     private String casts;
+
+    private String trailer;
 
     @OneToMany(mappedBy = "content")
     private List<ContentGenre> genres = new ArrayList<>();
@@ -56,7 +63,7 @@ public class Content extends BaseTimeEntity {
 //    private List<OneLineReview> replies = new ArrayList<>();
 
     @Builder
-    public Content(Long id, String title, String description, LocalDate releaseDate, Rating rating, Category category, Long love, List<Poster> poster, List<ContentCompany> companies, String casts, List<ContentGenre> genres) {
+    public Content(Long id, String title, String description, LocalDate releaseDate, Rating rating, Category category, Long love, Poster poster, List<ContentCompany> companies, String casts, List<ContentGenre> genres,String trailer) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -68,9 +75,42 @@ public class Content extends BaseTimeEntity {
         this.companies = companies;
         this.casts = casts;
         this.genres = genres;
+        this.trailer= trailer;
     }
     //    편의 메서드
 
 
+    public Poster getFirstPoster() {
+        return this.poster;
+    }
 
+    public ContentViewDto toViewDto() {
+      return ContentViewDto.builder()
+              .id(id)
+                .title(title)
+                .description(description)
+                .releaseDate(releaseDate)
+              .trailer(trailer)
+                .rating(rating.getValue())
+                .category(category.getKrname())
+                .companies(companies.stream().map(contentCompany -> contentCompany.getCompany().getKrname()).collect(Collectors.toList()))
+                .cast(casts)
+                .genres(genres.stream().map(contentGenre -> contentGenre.getGenre().getKrname()).collect(Collectors.toList()))
+                .build();
+    }
+
+    public ContentFormDto toFormDto() {
+        return ContentFormDto.builder()
+                .id(id)
+                .title(title)
+                .description(description)
+                .trailer(trailer)
+                .releaseDate(releaseDate)
+                .rating(rating)
+                .category(category.getId())
+                .companies(companies.stream().map(contentCompany -> contentCompany.getId()).collect(Collectors.toList()))
+                .cast(casts)
+                .genres(genres.stream().map(contentGenre -> contentGenre.getId()).collect(Collectors.toList()))
+                .build();
+    }
 }

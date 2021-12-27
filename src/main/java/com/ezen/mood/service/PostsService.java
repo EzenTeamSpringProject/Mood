@@ -71,10 +71,14 @@ public class PostsService {
     }
 
     public void updatePost(Long id, String email, PostFormDto postFormDto) throws Exception {
-        Member member = memberRepository.findByEmail(email).get();
         Posts post = postsRepository.findById(id).orElse(null);
         if (!post.getMember().getEmail().equals(email)) {
             throw new IllegalArgumentException("게시글의 소유자가 아닙니다");
+        }
+        List<Files> originFiles = filesRepository.findByPostId(post.getId());
+        for (Files originFile : originFiles) {
+            originFile.deletePhysicFile();
+            filesRepository.delete(originFile);
         }
 
         List<Files> files = fileUtilities.storeFiles(postFormDto.getImageFiles(), post, filesRepository);
