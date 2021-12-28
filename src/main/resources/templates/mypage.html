@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mood</title>
+    <link rel="shortcut icon" href="/img/letter-m.png" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="/mypage/style.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/mypage.css" />
+    <script
+      src="https://kit.fontawesome.com/072f44ed92.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <a href="/">Mood</a>
+      </div>
+      <div class="member">
+        <button
+          sec:authorize="!isAuthenticated()"
+          id="login"
+          onclick="location.href='/auth/login'"
+        >
+          로그인
+        </button>
+        <button
+          sec:authorize="!isAuthenticated()"
+          id="join"
+          onclick="location.href='/auth/join'"
+        >
+          회원가입
+        </button>
+
+        <div sec:authorize="isAuthenticated()" id="profile">
+          <button>
+            <img
+              sec:authorize-expr="isAuthenticated()"
+              th:src="${member.picture}"
+            />
+          </button>
+          <ul id="dropDown" class="hidden">
+            <li sec:authorize-expr="hasRole('MEMBER')">
+              <a href="#">새 글 작성</a>
+            </li>
+            <li sec:authorize="hasRole('MEMBER')">
+              <a href="#">마이페이지</a>
+            </li>
+            <li sec:authorize="hasRole('ADMIN')">
+              <a href="/admin">관리페이지</a>
+            </li>
+            <li><a href="/auth/logout">로그아웃</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navbar -->
+    <nav>
+      <div class="menu">
+        <a href="#"><i class="fas fa-bars"></i></a>
+        <a href="#">홈</a>
+        <a href="#">영화</a>
+        <a href="#">드라마</a>
+        <a href="#">리뷰</a>
+      </div>
+      <div class="search">
+        <a href="#"><i class="fas fa-search"></i></a>
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <main>
+      <section>
+        <div class="profile">
+          <div class="image">
+            <img src="../static/img/defaultProfile.png" />
+            <!-- <img th:src="${member.picture}" /> -->
+          </div>
+          <button class="imgBtn upload">이미지 업로드</button>
+          <button class="imgBtn">이미지 제거</button>
+        </div>
+        <div class="info">
+          <h1 th:src="${member.name}">이름</h1>
+          <p>(한 줄 소개)</p>
+          <form action="" class="hidden">
+            <input type="text" value="" />
+            <input type="text" placeholder="한 줄 소개" />
+            <div>
+              <button class="saveBtn">저장</button>
+            </div>
+          </form>
+          <button class="editBtn">수정</button>
+        </div>
+        <div class="quit">
+          <span>회원 탈퇴</span>
+          <button>회원 탈퇴</button>
+          <p>
+            탈퇴 시 작성하신 포스트 및 댓글이 모두 삭제되며 복구되지 않습니다.
+          </p>
+        </div>
+      </section>
+    </main>
+    <script src="js/main.js"></script>
+    <script src="../static/js/main.js"></script>
+  </body>
+</html>
