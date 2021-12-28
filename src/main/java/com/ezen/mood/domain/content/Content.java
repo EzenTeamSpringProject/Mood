@@ -38,7 +38,7 @@ public class Content extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Rating rating;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 

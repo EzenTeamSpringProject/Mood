@@ -25,36 +25,18 @@
 	</head>
 	
 	<body>
-		<!-- Header -->
-		
 		<header>
 			<div class="logo">
 				<a href="/" style="text-decoration: none;color: #2196f3;">Mood</a>
 			</div>
 			<div class="member">
-				<div sec:authorize="!isAuthenticated()">
-					<button
-						id="login"
-						onclick="location.href='/auth/login'">
-						로그인
-					</button>
-					<button
-						id="join"
-						onclick="location.href='/auth/join'">
-						회원가입
-					</button>
-				</div>
-				<div sec:authorize="isAuthenticated()" id="profile">
+				<div id="profile">
 					<button>
-						<img sec:authorize-expr="isAuthenticated()" th:src="${session.member.picture}"/>
+						<img th:src="${session.member.picture}"/>
 					</button>
 					<ul id="dropDown" class="hidden">
-						<li sec:authorize-expr="hasRole('MEMBER')"><a href="#" style="text-decoration: none">새 글 작성</a>
-						</li>
-						<li sec:authorize="hasRole('MEMBER')"><a href="/member/contents" style="text-decoration: none">마이페이지</a>
-						</li>
-						<li sec:authorize="hasRole('ADMIN')"><a href="/admin" style="text-decoration: none">관리페이지</a>
-						</li>
+						<li><a href="/member/reviews/create" style="text-decoration: none">새 글 작성</a></li>
+						<li><a href="/member" style="text-decoration: none">마이페이지</a></li>
 						<li><a href="/auth/logout" style="text-decoration: none">로그아웃</a></li>
 					</ul>
 				</div>
@@ -65,20 +47,16 @@
 		<nav>
 			<ul class="nav nav-tabs">
 				<li class="nav-item">
-					<a class="nav-link active" href="/"><h5 style="font-weight: 900">홈</h5></a>
+					<a class="nav-link" th:classappend="${#strings.equals(category,'wishContent')}? active:''"   href="/member/contents"><h5 style="font-weight: 600">내가 찜한 컨텐츠</h5></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/movie"><h5 style="font-weight: 600">영화</h5></a>
+					<a class="nav-link" th:classappend="${#strings.equals(category,'wishReview')}? active:''"   href="/member/reviews/other"><h5 style="font-weight: 600">내가 찜한 리뷰</h5></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-bs-toggle="tab" href="/drama"><h5 style="font-weight: 600">드라마</h5></a>
+					<a class="nav-link" th:classappend="${#strings.equals(category,'myReview')}? active:''"    href="/member/reviews"><h5 style="font-weight: 600">내가 쓴 리뷰</h5></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-bs-toggle="tab" href="/animation"><h5 style="font-weight: 600">애니메이션</h5>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link " data-bs-toggle="tab" href="/review"><h5 style="font-weight: 600">리뷰</h5></a>
+					<a class="nav-link " th:classappend="${#strings.equals(category,'myInfo')}? active:''"  href="/member/info"><h5 style="font-weight: 600">내 정보 관리</h5></a>
 				</li>
 			</ul>
 		</nav>
@@ -89,8 +67,7 @@
 				<div class="card mb-3" th:each="content : ${contents}" style="width: 20%;cursor: pointer"
 				     th:onclick="|location.href='@{/contents/{id}(id=${content.id})}'|">
 					<img th:onclick="" style="height:150px;"
-					     th:if="${content.getFirstPoster()!=null}"
-					     th:src="|/contents/files/${content.getFirstPoster().filename}|"
+					     th:if="${content.getFirstPoster()!=null}" th:src="|/contents/files/${content.getFirstPoster().filename}|"
 					/>
 					<h6 class="card-header" th:text="${content.title}">Card header</h6>
 				</div>

@@ -2,10 +2,8 @@ package com.ezen.mood.controller;
 
 import com.ezen.mood.config.auth.LoginMember;
 import com.ezen.mood.config.auth.dto.SessionMember;
-import com.ezen.mood.domain.posts.Posts;
+import com.ezen.mood.domain.review.Posts;
 import com.ezen.mood.dto.PostFormDto;
-import com.ezen.mood.repository.MemberRepository;
-import com.ezen.mood.repository.PostsRepository;
 import com.ezen.mood.service.PostsService;
 import com.ezen.mood.util.FileUtilities;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +22,12 @@ import java.util.List;
 public class PostsController {
 
     private final PostsService postsService;
-    private final MemberRepository memberRepository;
-    private final PostsRepository postsRepository;
     private final FileUtilities fileUtilities;
 
     //    Create
-    @GetMapping("/write")
+    @GetMapping("/member/reviews")
     public String postWriteForm(@ModelAttribute("post") Posts post) {
+
         return "post/postWriteForm";
     }
 

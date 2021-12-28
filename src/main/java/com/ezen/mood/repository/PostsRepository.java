@@ -1,6 +1,6 @@
 package com.ezen.mood.repository;
 
-import com.ezen.mood.domain.posts.Posts;
+import com.ezen.mood.domain.review.Posts;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

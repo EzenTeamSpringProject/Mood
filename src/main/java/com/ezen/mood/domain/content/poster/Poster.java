@@ -1,7 +1,5 @@
 package com.ezen.mood.domain.content.poster;
 
-import com.ezen.mood.domain.content.Content;
-import com.ezen.mood.domain.posts.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

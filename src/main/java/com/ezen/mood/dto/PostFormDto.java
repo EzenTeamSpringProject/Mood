@@ -1,6 +1,6 @@
 package com.ezen.mood.dto;
 
-import com.ezen.mood.domain.posts.Posts;
+import com.ezen.mood.domain.review.Posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

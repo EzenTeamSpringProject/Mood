@@ -22,7 +22,7 @@ public class ContentGenre {
     private Content content;
 
     @ManyToOne
-    @JoinColumn(name ="ott_id")
+    @JoinColumn(name ="genre_id")
     private Genre genre;
 
     public void putContent(Content content) {

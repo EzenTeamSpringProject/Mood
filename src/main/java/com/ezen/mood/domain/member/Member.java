@@ -2,19 +2,15 @@ package com.ezen.mood.domain.member;
 
 import com.ezen.mood.config.auth.dto.SessionMember;
 
-import com.ezen.mood.domain.posts.Posts;
+import com.ezen.mood.domain.review.Posts;
 import com.ezen.mood.domain.util.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Setter
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
@@ -45,8 +41,8 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member")
     private List<Posts> posts = new ArrayList<>();
 
-//    @OneToMany(mappedBy ="member",cascade = CascadeType.ALL,orphanRemoval = true)
-//    private List<WishContent> wishes = new ArrayList<>();
+    @OneToMany(mappedBy ="member")
+    private List<WishContent> wishes = new ArrayList<>();
 //
 //    @OneToMany(mappedBy = "member")
 //    private List<Review> myReviews = new ArrayList<>();

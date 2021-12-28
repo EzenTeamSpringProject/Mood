@@ -1,22 +1,28 @@
 package com.ezen.mood.service.admin;
 
+import com.ezen.mood.domain.content.Content;
 import com.ezen.mood.domain.content.category.Category;
 import com.ezen.mood.domain.content.company.Company;
 import com.ezen.mood.dto.GccDto;
 import com.ezen.mood.repository.CategoryRepository;
 import com.ezen.mood.repository.CompanyRepository;
+import com.ezen.mood.repository.ContentRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-
+@Slf4j
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final ContentRepository contentRepository;
 
     public Category saveCategory(GccDto gccDto) {
         Category newEntity = GccDto.toCategoryEntity(gccDto);
@@ -33,7 +39,25 @@ public class CategoryService {
         return categoryRepository.findById(id).orElse(null);
     }
 
+    public Category findByKrname(String krname) {
+        Category category = categoryRepository.findByKrname(krname).orElse(null);
+        return category;
+
+    }
+
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
+    }
+
     public void removeCategory(Long id) {
+        Category category = categoryRepository.findById(id).orElse(null);
+        List<Content> contentList = category.getContentList();
+        for (Content content : contentList) {
+            if (content != null) {
+                content.setCategory(null);
+            }
+        }
+
         categoryRepository.deleteById(id);
     }
 

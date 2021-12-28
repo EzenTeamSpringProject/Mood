@@ -1,7 +1,7 @@
 package com.ezen.mood.service;
 
 import com.ezen.mood.domain.member.Member;
-import com.ezen.mood.domain.posts.Posts;
+import com.ezen.mood.domain.review.Posts;
 import com.ezen.mood.dto.PostFormDto;
 import com.ezen.mood.repository.FilesRepository;
 import com.ezen.mood.repository.MemberRepository;
@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 

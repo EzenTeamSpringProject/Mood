@@ -1,4 +1,4 @@
-package com.ezen.mood.domain.posts;
+package com.ezen.mood.domain.review;
 
 import com.ezen.mood.domain.member.Member;
 import com.ezen.mood.domain.util.BaseTimeEntity;

@@ -1,6 +1,6 @@
 package com.ezen.mood.util;
 
-import com.ezen.mood.domain.posts.Posts;
+import com.ezen.mood.domain.review.Posts;
 import com.ezen.mood.repository.FilesRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

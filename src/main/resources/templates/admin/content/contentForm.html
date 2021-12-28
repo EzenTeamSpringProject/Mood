@@ -27,7 +27,7 @@
 		
 		<header>
 			<div class="logo">
-				<a href="/" style="text-decoration: none">Mood</a>
+				<a href="/" style="text-decoration: none;color: #2196f3;">Mood</a>
 			</div>
 			<div class="member" style="z-index: 1000">
 				<div sec:authorize="isAuthenticated()" id="profile">
@@ -72,11 +72,7 @@
 							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
 							   aria-haspopup="true" aria-expanded="false">Member</a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">Action</a>
-								<a class="dropdown-item" href="#">Another action</a>
-								<a class="dropdown-item" href="#">Something else here</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Separated link</a>
+								<a class="dropdown-item" href="/admin/members">List</a>
 							</div>
 						</li>
 					</ul>

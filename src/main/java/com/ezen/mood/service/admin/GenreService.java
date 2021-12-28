@@ -1,20 +1,24 @@
 package com.ezen.mood.service.admin;
 
+import com.ezen.mood.domain.content.genre.ContentGenre;
 import com.ezen.mood.domain.content.genre.Genre;
 import com.ezen.mood.dto.GccDto;
+import com.ezen.mood.repository.ContentGenreRepository;
 import com.ezen.mood.repository.GenreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class GenreService {
 
     private final GenreRepository genreRepository;
-
+    private final ContentGenreRepository contentGenreRepository;
     /**
      *  Genre CRUD
      */
@@ -34,6 +38,14 @@ public class GenreService {
     }
 
     public void removeGenre(Long id) {
+        Genre genre = genreRepository.findById(id).orElse(null);
+        List<ContentGenre> contents = genre.getContents();
+        for (ContentGenre content : contents) {
+            if (content != null) {
+                contentGenreRepository.delete(content);
+            }
+        }
+
         genreRepository.deleteById(id);
     }
 

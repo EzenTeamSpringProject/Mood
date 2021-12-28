@@ -38,13 +38,17 @@ public class MemberService implements UserDetailsService{
         memberRepository.save(member);
     }
 
-    public void withdraw(Member member) {
-        memberRepository.delete(member);
+    public void deleteById(Long id) {
+        memberRepository.deleteById(id);
     }
 
-    public Member find(Long id) {
+    public Member findById(Long id) {
         Member member = memberRepository.findById(id).get();
         return member;
+    }
+
+    public List<Member> findAll() {
+        return memberRepository.findAll();
     }
 
 //    public Member checkLogin(AuthDto loginDto) {
@@ -53,6 +57,10 @@ public class MemberService implements UserDetailsService{
 //                .orElse(null);
 //
 //    }
+    public Member findByEmail(String email){
+        return memberRepository.findByEmail(email).orElse(null);
+    }
+
 
     public boolean isExist(AuthDto loginDto) {
         return memberRepository.findByEmail(loginDto.getEmail()).isPresent();
