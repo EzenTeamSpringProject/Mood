@@ -1,10 +1,9 @@
 package com.ezen.mood.config.auth;
 
 import com.ezen.mood.domain.member.Role;
-import com.ezen.mood.service.MemberService;
+import com.ezen.mood.service.common.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -29,13 +28,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .csrf().disable()
+                .csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()// 권한별 url 설정
                         .antMatchers("/", "/css/**", "/img/**", "/js/**","/auth/**").permitAll() // 권한 상관없이 모두 Ok
                         .antMatchers("/api/v1/**").hasRole(Role.MEMBER.name()) //USER 권한 url
-                        .antMatchers("/api/v1/**").hasRole(Role.ADMIN.name()) // ADMIN 권한 url
+                        .antMatchers("/admin/**").hasRole(Role.ADMIN.name()) // ADMIN 권한 url
                         .anyRequest().permitAll()
                 .and()
                     .logout()

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
   xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.w3.org/1999/xhtml"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
   <head>
     <meta charset="UTF-8" />
@@ -13,7 +13,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
     <script
       src="https://kit.fontawesome.com/072f44ed92.js"
       crossorigin="anonymous"
@@ -28,39 +27,42 @@
       </div>
       <div class="member">
         <button
-          sec:authorize="isAnonymous()"
+          sec:authorize="!isAuthenticated()"
           id="login"
           onclick="location.href='/auth/login'"
         >
           로그인
         </button>
         <button
-          sec:authorize="isAnonymous()"
+          sec:authorize="!isAuthenticated()"
           id="join"
           onclick="location.href='/auth/join'"
         >
           회원가입
         </button>
+
         <div sec:authorize="isAuthenticated()" id="profile">
           <button>
-            <img sec:authorize="isAuthenticated()" th:src="${member.picture}" />
+            <img
+              sec:authorize-expr="isAuthenticated()"
+              th:src="${member.picture}"
+            />
           </button>
           <ul id="dropDown" class="hidden">
-            <li><a href="#">새 글 작성</a></li>
-            <li><a href="#">마이페이지</a></li>
+            <li sec:authorize-expr="hasRole('MEMBER')">
+              <a href="#">새 글 작성</a>
+            </li>
+            <li sec:authorize="hasRole('MEMBER')">
+              <a href="#">마이페이지</a>
+            </li>
+            <li sec:authorize="hasRole('ADMIN')">
+              <a href="/admin">관리페이지</a>
+            </li>
             <li><a href="/auth/logout">로그아웃</a></li>
           </ul>
         </div>
       </div>
     </header>
-
-    <!-- <button
-      sec:authorize="isAuthenticated()"
-      id="logout"
-      onclick="location.href='/auth/logout'"
-    >
-      로그아웃
-    </button> -->
 
     <!-- Navbar -->
     <nav>
@@ -102,8 +104,8 @@
             />
           </div>
           <div class="title">
-            <로키 시즌1> 역대 최고의 마블드라마? 장난의 신이 우주의 질서를
-            지키는 영웅으로 각성?
+            로키 시즌1 역대 최고의 마블드라마? 장난의 신이 우주의 질서를 지키는
+            영웅으로 각성?
           </div>
           <div class="date">1일 전</div>
           <div class="author">아톰비트</div>
@@ -149,7 +151,6 @@
         </article>
 
         <!-- Second Line -->
-
         <article>
           <div class="image">
             <img
@@ -219,7 +220,6 @@
         </article>
 
         <!-- Third Line -->
-
         <article>
           <div class="image">
             <img
@@ -289,8 +289,6 @@
         </article>
       </section>
     </main>
-
     <script src="js/main.js"></script>
-    <script src="../static/js/main.js"></script>
   </body>
 </html>

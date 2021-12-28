@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 //@Entity
 @NoArgsConstructor
-public class LoveReview {
+public class LovePost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "love_review_id")
@@ -21,6 +21,6 @@ public class LoveReview {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="review_id")
-    private Review review;
+    private Post post;
 
 }
