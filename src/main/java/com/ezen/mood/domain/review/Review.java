@@ -1,21 +1,23 @@
-package com.ezen.mood.domain.posts;
+package com.ezen.mood.domain.review;
 
+import com.ezen.mood.domain.content.poster.Poster;
 import com.ezen.mood.domain.member.Member;
 import com.ezen.mood.domain.util.BaseTimeEntity;
-import com.ezen.mood.util.Files;
+
+import com.ezen.mood.dto.ReviewFormDto;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Getter@Setter
 @NoArgsConstructor
 @Entity
-public class Posts extends BaseTimeEntity {
+public class Review extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,9 +34,9 @@ public class Posts extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
-    private List<Files> files = new ArrayList<>();
-
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name="poster_id")
+    private Poster poster;
 
     public void setMember(Member member) {
         this.member = member;
@@ -42,10 +44,21 @@ public class Posts extends BaseTimeEntity {
     }
 
     @Builder
-    public Posts(String title, String content, Member member) {
+    public Review(Long id, String title, String content, Member member, Poster poster) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.member = member;
+        this.poster = poster;
     }
+
+    public ReviewFormDto toFormDto() {
+        return ReviewFormDto.builder()
+                .id(id)
+                .title(title)
+                .content(content)
+                .build();
+    }
+
 
 }

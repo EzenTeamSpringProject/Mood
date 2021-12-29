@@ -1,20 +1,25 @@
 package com.ezen.mood.service.admin;
 
 import com.ezen.mood.domain.content.company.Company;
+import com.ezen.mood.domain.content.company.ContentCompany;
 import com.ezen.mood.dto.GccDto;
 import com.ezen.mood.repository.CompanyRepository;
+import com.ezen.mood.repository.ContentCompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class CompanyService {
 
     private final CompanyRepository companyRepository;
+    private final ContentCompanyRepository contentCompanyRepository;
 
     public Company saveCompany(GccDto gccDto) {
         Company entity = GccDto.toCompanyEntity(gccDto);
@@ -32,6 +37,14 @@ public class CompanyService {
     }
 
     public void removeCompany(Long id) {
+        Company company = companyRepository.findById(id).orElse(null);
+        List<ContentCompany> contents = company.getContents();
+        for (ContentCompany content : contents) {
+            if(content!=null){
+                contentCompanyRepository.delete(content);
+            }
+        }
+
         companyRepository.deleteById(id);
     }
 

@@ -5,16 +5,16 @@ import com.ezen.mood.domain.content.category.Category;
 import com.ezen.mood.domain.content.company.Company;
 import com.ezen.mood.domain.content.enums.Rating;
 import com.ezen.mood.domain.content.genre.Genre;
+import com.ezen.mood.domain.member.Member;
 import com.ezen.mood.dto.ContentFormDto;
 import com.ezen.mood.dto.ContentViewDto;
 import com.ezen.mood.dto.GccDto;
-import com.ezen.mood.repository.CategoryRepository;
-import com.ezen.mood.repository.CompanyRepository;
-import com.ezen.mood.repository.GenreRepository;
+import com.ezen.mood.repository.*;
 import com.ezen.mood.service.admin.CategoryService;
 import com.ezen.mood.service.admin.CompanyService;
 import com.ezen.mood.service.admin.ContentService;
 import com.ezen.mood.service.admin.GenreService;
+import com.ezen.mood.service.common.MemberService;
 import com.ezen.mood.util.PosterUtilities;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
@@ -40,6 +40,7 @@ public class AdminController {
     private final GenreRepository genreRepository;
     private final ContentService contentService;
     private final PosterUtilities posterUtilities;
+    private final MemberService memberService;
 
     //    관리자 페이지 - 메인
     @GetMapping
@@ -114,6 +115,7 @@ public class AdminController {
         if (deleteId == null) {
             return "redirect:/admin/companies";
         }
+
         for (Long id : deleteId) {
             companyService.removeCompany(id);
         }
@@ -150,7 +152,7 @@ public class AdminController {
             return "redirect:/admin/categories";
         }
         for (Long id : deleteId) {
-            genreService.removeGenre(id);
+            categoryService.removeCategory(id);
         }
         return "redirect:/admin/categories";
     }
@@ -197,6 +199,7 @@ public class AdminController {
         model.addAttribute("dto",contentFormDto);
         return "admin/content/contentForm";
     }
+
     @PostMapping("/contents/{id}/edit")
     public String editContent(@PathVariable Long id,@ModelAttribute("dto") ContentFormDto dto) throws Exception {
         contentService.updateContent(id,dto);
@@ -230,6 +233,26 @@ public class AdminController {
     @GetMapping("/contents/files/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
         return new UrlResource("file:" + posterUtilities.getFullPath(filename));
+    }
+
+
+    /**
+     * 멤버 관리
+     */
+    @GetMapping("/members")
+    public String memberList(Model model) {
+        List<Member> members = memberService.findAll();
+        model.addAttribute("members", members);
+
+        return "admin/member/memberList";
+    }
+
+    @PostMapping("/members/delete")
+    public String deleteMember(@RequestParam(required = false) List<Long> ids) {
+        for (Long id : ids) {
+            memberService.deleteById(id);
+        }
+        return "redirect:/admin/members";
     }
 
 

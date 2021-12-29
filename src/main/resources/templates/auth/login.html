@@ -24,7 +24,7 @@
     <!-- Header -->
     <header>
       <div class="logo">
-        <a href="/">Mood</a>
+        <a href="/" style="text-decoration: none; color: #2196f3">Mood</a>
       </div>
       <div>
         <button id="login" onclick="location.href='/auth/login'">로그인</button>
@@ -44,7 +44,6 @@
           <div>
             <p>이메일</p>
             <input
-              required
               type="email"
               th:field="*{email}"
               th:value="*{email}"
@@ -54,16 +53,13 @@
           <div>
             <p>비밀번호</p>
             <input
-              required
               type="password"
               name=""
               th:field="*{password}"
               th:classappend="${param.error!=null} ? 'border-error' : ''"
             />
           </div>
-          <div>
-            <input type="submit" value="로그인" />
-          </div>
+          <input type="submit" style="cursor: pointer" value="로그인" />
         </form>
       </div>
 

@@ -12,7 +12,20 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+
     <script
       src="https://kit.fontawesome.com/072f44ed92.js"
       crossorigin="anonymous"
@@ -21,44 +34,44 @@
 
   <body>
     <!-- Header -->
+
     <header>
       <div class="logo">
-        <a href="/">Mood</a>
+        <a href="/" style="text-decoration: none; color: #2196f3">Mood</a>
       </div>
       <div class="member">
-        <button
-          sec:authorize="!isAuthenticated()"
-          id="login"
-          onclick="location.href='/auth/login'"
-        >
-          로그인
-        </button>
-        <button
-          sec:authorize="!isAuthenticated()"
-          id="join"
-          onclick="location.href='/auth/join'"
-        >
-          회원가입
-        </button>
-
+        <div sec:authorize="!isAuthenticated()">
+          <button id="login" onclick="location.href='/auth/login'">
+            로그인
+          </button>
+          <button id="join" onclick="location.href='/auth/join'">
+            회원가입
+          </button>
+        </div>
         <div sec:authorize="isAuthenticated()" id="profile">
           <button>
             <img
               sec:authorize-expr="isAuthenticated()"
-              th:src="${member.picture}"
+              th:src="${session.member.picture}"
             />
           </button>
           <ul id="dropDown" class="hidden">
             <li sec:authorize-expr="hasRole('MEMBER')">
-              <a href="#">새 글 작성</a>
+              <a href="/member/reviews/write" style="text-decoration: none"
+                >새 글 작성</a
+              >
             </li>
             <li sec:authorize="hasRole('MEMBER')">
-              <a href="#">마이페이지</a>
+              <a href="/member/contents" style="text-decoration: none"
+                >마이페이지</a
+              >
             </li>
             <li sec:authorize="hasRole('ADMIN')">
-              <a href="/admin">관리페이지</a>
+              <a href="/admin" style="text-decoration: none">관리페이지</a>
             </li>
-            <li><a href="/auth/logout">로그아웃</a></li>
+            <li>
+              <a href="/auth/logout" style="text-decoration: none">로그아웃</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -66,227 +79,57 @@
 
     <!-- Navbar -->
     <nav>
-      <div class="menu">
-        <a href="#"><i class="fas fa-bars"></i></a>
-        <a href="#">홈</a>
-        <a href="#">영화</a>
-        <a href="#">드라마</a>
-        <a href="#">리뷰</a>
-      </div>
-      <div class="search">
-        <a href="#"><i class="fas fa-search"></i></a>
-      </div>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="/"
+            ><h5 style="font-weight: 900">홈</h5></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/movie"
+            ><h5 style="font-weight: 600">영화</h5></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/drama"
+            ><h5 style="font-weight: 600">드라마</h5></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/animation"
+            ><h5 style="font-weight: 600">애니메이션</h5>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/reviews"
+            ><h5 style="font-weight: 600">리뷰</h5></a
+          >
+        </li>
+      </ul>
     </nav>
 
     <!-- Main -->
     <main>
       <section>
-        <!-- First Line -->
-        <article>
-          <div class="image">
-            <img
-              src="https://mblogthumb-phinf.pstatic.net/MjAxOTEwMTZfMjQw/MDAxNTcxMjIxNzczNDI4.WnCDOLRjUS8m_4xbPBlXJ4D2vzI9aKWLMaR4Xq3AMYMg.Qki1knzXOjPjreXgADNyr0-3Z_vfThMjYwMnqamsJzkg.JPEG.sec1021/wandavision-d23-art-top.jpg?type=w800"
-              alt=""
-            />
-          </div>
-          <div class="title">
-            디즈니 플러스 [완다비전] 비전은 어떻게 살아났을까?
-          </div>
-          <div class="date">1시간 전</div>
-          <div class="author">필름닷 영화이야기</div>
-        </article>
-
-        <article>
-          <div class="image">
-            <img
-              src="https://blog.kakaocdn.net/dn/dtocWR/btq6Bd01Kpx/6e5R8uNOHyzF0N3nHwKeDk/img.jpg"
-              alt=""
-            />
-          </div>
-          <div class="title">
-            로키 시즌1 역대 최고의 마블드라마? 장난의 신이 우주의 질서를 지키는
-            영웅으로 각성?
-          </div>
-          <div class="date">1일 전</div>
-          <div class="author">아톰비트</div>
-        </article>
-
-        <article>
-          <div class="image">
-            <img
-              src="https://cdn.digitaltoday.co.kr/news/photo/202103/268489_225058_1329.jpg"
-              alt=""
-            />
-          </div>
-          <div class="title">
-            영화 블랙 위도우 리뷰 * 탄탄한 서사와 멋진 액션을 한번에, 기다림은
-            결코 헛되지 않았다
-          </div>
-          <div class="date">1주 전</div>
-          <div class="author">럽카키</div>
-        </article>
-
-        <article>
-          <div class="image">
-            <img
-              src="https://img.insight.co.kr/static/2021/09/05/700/img_20210905103141_pl9568yh.webp"
-              alt=""
-            />
-          </div>
-          <div class="title">샹치와 텐 링즈의 전설 리뷰</div>
-          <div class="date">12월 5일</div>
-          <div class="author">엠비규어스 제이</div>
-        </article>
-
-        <article>
-          <div class="image">
-            <img
-              src="https://image.news1.kr/system/photos/2021/10/19/5022397/article.jpg/dims/optimize"
-              alt=""
-            />
-          </div>
-          <div class="title">영화 이터널스 * 긴 터널 여러개 지나는 듯한...</div>
-          <div class="date">12월 1일</div>
-          <div class="author">젤소미나의 일상다반사</div>
-        </article>
-
-        <!-- Second Line -->
-        <article>
-          <div class="image">
-            <img
-              src="https://blog.kakaocdn.net/dn/dtocWR/btq6Bd01Kpx/6e5R8uNOHyzF0N3nHwKeDk/img.jpg"
-              alt=""
-            />
-          </div>
-          <div class="title">
-            <로키 시즌1> 역대 최고의 마블드라마? 장난의 신이 우주의 질서를
-            지키는 영웅으로 각성?
-          </div>
-          <div class="date">1일 전</div>
-          <div class="author">아톰비트</div>
-        </article>
-
-        <article>
-          <div class="image">
-            <img
-              src="https://cdn.digitaltoday.co.kr/news/photo/202103/268489_225058_1329.jpg"
-              alt=""
-            />
-          </div>
-          <div class="title">
-            영화 블랙 위도우 리뷰 * 탄탄한 서사와 멋진 액션을 한번에, 기다림은
-            결코 헛되지 않았다
-          </div>
-          <div class="date">1주 전</div>
-          <div class="author">럽카키</div>
-        </article>
-
-        <article>
-          <div class="image">
-            <img
-              src="https://img.insight.co.kr/static/2021/09/05/700/img_20210905103141_pl9568yh.webp"
-              alt=""
-            />
-          </div>
-          <div class="title">샹치와 텐 링즈의 전설 리뷰</div>
-          <div class="date">12월 5일</div>
-          <div class="author">엠비규어스 제이</div>
-        </article>
-
-        <article>
-          <div class="image">
-            <img
-              src="https://image.news1.kr/system/photos/2021/10/19/5022397/article.jpg/dims/optimize"
-              alt=""
-            />
-          </div>
-          <div class="title">영화 이터널스 * 긴 터널 여러개 지나는 듯한...</div>
-          <div class="date">12월 1일</div>
-          <div class="author">젤소미나의 일상다반사</div>
-        </article>
-
-        <article>
-          <div class="image">
-            <img
-              src="https://mblogthumb-phinf.pstatic.net/MjAxOTEwMTZfMjQw/MDAxNTcxMjIxNzczNDI4.WnCDOLRjUS8m_4xbPBlXJ4D2vzI9aKWLMaR4Xq3AMYMg.Qki1knzXOjPjreXgADNyr0-3Z_vfThMjYwMnqamsJzkg.JPEG.sec1021/wandavision-d23-art-top.jpg?type=w800"
-              alt=""
-            />
-          </div>
-          <div class="title">
-            디즈니 플러스 [완다비전] 비전은 어떻게 살아났을까?
-          </div>
-          <div class="date">1시간 전</div>
-          <div class="author">필름닷 영화이야기</div>
-        </article>
-
-        <!-- Third Line -->
-        <article>
-          <div class="image">
-            <img
-              src="https://cdn.digitaltoday.co.kr/news/photo/202103/268489_225058_1329.jpg"
-              alt=""
-            />
-          </div>
-          <div class="title">
-            영화 블랙 위도우 리뷰 * 탄탄한 서사와 멋진 액션을 한번에, 기다림은
-            결코 헛되지 않았다
-          </div>
-          <div class="date">1주 전</div>
-          <div class="author">럽카키</div>
-        </article>
-
-        <article>
-          <div class="image">
-            <img
-              src="https://img.insight.co.kr/static/2021/09/05/700/img_20210905103141_pl9568yh.webp"
-              alt=""
-            />
-          </div>
-          <div class="title">샹치와 텐 링즈의 전설 리뷰</div>
-          <div class="date">12월 5일</div>
-          <div class="author">엠비규어스 제이</div>
-        </article>
-
-        <article>
-          <div class="image">
-            <img
-              src="https://image.news1.kr/system/photos/2021/10/19/5022397/article.jpg/dims/optimize"
-              alt=""
-            />
-          </div>
-          <div class="title">영화 이터널스 * 긴 터널 여러개 지나는 듯한...</div>
-          <div class="date">12월 1일</div>
-          <div class="author">젤소미나의 일상다반사</div>
-        </article>
-
-        <article>
-          <div class="image">
-            <img
-              src="https://mblogthumb-phinf.pstatic.net/MjAxOTEwMTZfMjQw/MDAxNTcxMjIxNzczNDI4.WnCDOLRjUS8m_4xbPBlXJ4D2vzI9aKWLMaR4Xq3AMYMg.Qki1knzXOjPjreXgADNyr0-3Z_vfThMjYwMnqamsJzkg.JPEG.sec1021/wandavision-d23-art-top.jpg?type=w800"
-              alt=""
-            />
-          </div>
-          <div class="title">
-            디즈니 플러스 [완다비전] 비전은 어떻게 살아났을까?
-          </div>
-          <div class="date">1시간 전</div>
-          <div class="author">필름닷 영화이야기</div>
-        </article>
-
-        <article>
-          <div class="image">
-            <img
-              src="https://blog.kakaocdn.net/dn/dtocWR/btq6Bd01Kpx/6e5R8uNOHyzF0N3nHwKeDk/img.jpg"
-              alt=""
-            />
-          </div>
-          <div class="title">
-            <로키 시즌1> 역대 최고의 마블드라마? 장난의 신이 우주의 질서를
-            지키는 영웅으로 각성?
-          </div>
-          <div class="date">1일 전</div>
-          <div class="author">아톰비트</div>
-        </article>
+        <div
+          class="card mb-3"
+          th:each="content : ${contents}"
+          style="
+            width: 150px;
+            height: 195px;
+            margin: 0 5px 0 5px;
+            cursor: pointer;
+          "
+          th:onclick="|location.href='@{/contents/{id}(id=${content.id})}'|"
+        >
+          <img
+            th:onclick=""
+            style="height: 100%"
+            th:if="${content.poster!=null}"
+            th:src="|/contents/files/${content.poster.filename}|"
+          />
+          <h6 class="card-header" th:text="${content.title}">Card header</h6>
+        </div>
       </section>
     </main>
     <script src="js/main.js"></script>

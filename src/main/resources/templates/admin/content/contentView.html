@@ -21,7 +21,7 @@
 	<body>
 		<header>
 			<div class="logo">
-				<a href="/" style="text-decoration: none">Mood</a>
+				<a href="/" style="text-decoration: none;color: #2196f3;">Mood</a>
 			</div>
 			<div class="member" style="z-index: 1000">
 				<div sec:authorize="isAuthenticated()" id="profile">
@@ -63,11 +63,7 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Member</a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">Action</a>
-								<a class="dropdown-item" href="#">Another action</a>
-								<a class="dropdown-item" href="#">Something else here</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Separated link</a>
+								<a class="dropdown-item" href="/admin/members">List</a>
 							</div>
 						</li>
 					</ul>
@@ -79,9 +75,9 @@
 			</div>
 		</nav>
 		<main>
-			<div style="display: flex; justify-content: right">
+			<div style="display: flex; justify-content: right;margin:20px 0 20px 0">
 				<button class="btn btn-primary btn-lg" type="button" th:onclick="|location.href='@{/admin/contents/{id}/edit(id=${content.id})}'|"
-				        role="button">EDIT
+				       style="margin-right: 15px" role="button">EDIT
 				</button>
 				<button class="btn btn-secondary btn-lg" type="button" th:onclick="|location.href='@{/admin/contents/{id}/delete(id=${content.id})}'|"
 				        role="button">DELETE

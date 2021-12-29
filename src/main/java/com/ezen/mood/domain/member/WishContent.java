@@ -1,11 +1,17 @@
 package com.ezen.mood.domain.member;
 
 import com.ezen.mood.domain.content.Content;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-//@Entity
-@Table(name = "wish_content")
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
 public class WishContent {
 
     @Id
@@ -21,4 +27,10 @@ public class WishContent {
     @JoinColumn(name="content_id")
     private Content content;
 
+    @Builder
+    public WishContent(Long id, Member member, Content content) {
+        this.id = id;
+        this.member = member;
+        this.content = content;
+    }
 }

@@ -76,10 +76,10 @@ public class ContentService {
         content.setGenres(contentGenres);
 
         Content save = contentRepository.save(content);
-
-        Poster poster = posterUtilities.storePoster(dto.getPoster(), save, posterRepository);
-
-        save.setPoster(poster);
+        if(!dto.getPoster().isEmpty()){
+            Poster poster = posterUtilities.storePoster(dto.getPoster(), save, posterRepository);
+            save.setPoster(poster);
+        }
 
         return save;
     }
@@ -102,11 +102,6 @@ public class ContentService {
             contentCompanyRepository.delete(company);
         }
 
-//        Category category = content.getCategory();
-//        for (ContentCompany company : companies) {
-//            categoryRepository.delete(category);
-//        }
-
         Poster poster1 = content.getPoster();
         poster1.deletePhysicFile();
     }
@@ -125,7 +120,20 @@ public class ContentService {
     public void updateContent(Long id,ContentFormDto contentFormDto) throws Exception {
         Content content = contentRepository.findById(id).orElse(null);
 
-        delete(content);
+        List<ContentGenre> genres = content.getGenres();
+        for (ContentGenre genre : genres) {
+            contentGenreRepository.delete(genre);
+        }
+        List<ContentCompany> companies = content.getCompanies();
+        for (ContentCompany company : companies) {
+            contentCompanyRepository.delete(company);
+        }
+        if(!contentFormDto.getPoster().isEmpty()){
+            Poster poster1 = content.getPoster();
+            poster1.deletePhysicFile();
+        }
+
+
         save(contentFormDto, content);
     }
 

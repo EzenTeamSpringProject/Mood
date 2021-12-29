@@ -24,7 +24,7 @@
     <!-- Header -->
     <header>
       <div class="logo">
-        <a href="/">Mood</a>
+        <a href="/" style="text-decoration: none; color: #2196f3">Mood</a>
       </div>
       <div>
         <button id="login" onclick="location.href='/auth/login'">로그인</button>
@@ -53,7 +53,6 @@
               type="email"
               th:field="*{email}"
               th:errorclass="border-error"
-              required
             />
           </div>
           <div>
@@ -62,7 +61,6 @@
               type="password"
               th:field="*{password}"
               th:errorclass="border-error"
-              required
             />
           </div>
           <div>
@@ -71,7 +69,6 @@
               type="text"
               th:field="*{name}"
               th:errorclass="border-error"
-              required
             />
           </div>
           <input type="submit" style="cursor: pointer" value="가입하기" />

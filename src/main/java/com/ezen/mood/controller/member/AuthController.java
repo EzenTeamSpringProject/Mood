@@ -1,4 +1,4 @@
-package com.ezen.mood.controller;
+package com.ezen.mood.controller.member;
 
 import com.ezen.mood.config.auth.LoginMember;
 import com.ezen.mood.config.auth.dto.AuthDto;
