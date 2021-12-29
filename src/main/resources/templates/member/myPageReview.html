@@ -35,7 +35,7 @@
 						<img th:src="${session.member.picture}"/>
 					</button>
 					<ul id="dropDown" class="hidden">
-						<li><a href="/member/reviews/create" style="text-decoration: none">새 글 작성</a></li>
+						<li><a href="/member/reviews/write" style="text-decoration: none">새 글 작성</a></li>
 						<li><a href="/member" style="text-decoration: none">마이페이지</a></li>
 						<li><a href="/auth/logout" style="text-decoration: none">로그아웃</a></li>
 					</ul>
@@ -65,14 +65,26 @@
 		<main>
 			<section>
 				<div class="card mb-3" th:each="content : ${contents}" style="width: 20%;cursor: pointer"
-				     th:onclick="|location.href='@{/contents/{id}(id=${content.id})}'|">
-					<img th:onclick="" style="height:150px;"
-					     th:if="${content.getFirstPoster()!=null}" th:src="|/contents/files/${content.getFirstPoster().filename}|"
+				     th:onclick="|location.href='@{/reviews/{id}(id=${content.id})}'|">
+					<img style="height:150px;"
+					     th:if="${content.poster!=null}"
+					     th:src="|/contents/files/${content.poster.filename}|"
 					/>
-					<h6 class="card-header" th:text="${content.title}">Card header</h6>
+					<h6 class="card-header" th:if="${content.title.length()<20}" th:text="${content.title}">제목</h6>
+					<h6 class="card-header" th:if="${content.title.length()>=20}" th:text="${#strings.substring(content.title,0,17)}+'...'">제목</h6>
+					<div class="card-body">
+						<p class="card-text" th:if="${content.content.length()<60}" th:text="${content.content}">내용</p>
+						<p class="card-text" th:if="${content.content.length()>=60}" th:text="${#strings.substring(content.content,0,57)}+'...'">내용</p>
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item" th:text="${content.member.name}">작성자</li>
+					</ul>
+					<div class="card-footer text-muted" th:text="${#temporals.format(content.createdDate,'yyyy년 MM월 dd일')}">
+						작성일
+					</div>
 				</div>
 			</section>
 		</main>
-		<script src="js/main.js"></script>
+		<script src="../js/main.js"></script>
 	</body>
 </html>

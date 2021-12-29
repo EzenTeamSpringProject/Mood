@@ -199,6 +199,7 @@ public class AdminController {
         model.addAttribute("dto",contentFormDto);
         return "admin/content/contentForm";
     }
+
     @PostMapping("/contents/{id}/edit")
     public String editContent(@PathVariable Long id,@ModelAttribute("dto") ContentFormDto dto) throws Exception {
         contentService.updateContent(id,dto);

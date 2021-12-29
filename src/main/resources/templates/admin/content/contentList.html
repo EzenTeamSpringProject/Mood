@@ -93,9 +93,9 @@
 			</div>
 			
 			<section>
-				<div class="card mb-3" th:each="content : ${contents}" style="width: 20%;cursor: pointer"
+				<div class="card mb-3" th:each="content : ${contents}" style="width: 150px;height: 195px; margin: 0 5px 0 5px; cursor: pointer"
 					th:onclick="|location.href='@{/admin/contents/{id}(id=${content.id})}'|">
-					<img th:onclick="" style="height:150px;"
+					<img th:onclick="" style="height:100%;"
 					     th:if="${content.getFirstPoster()!=null}" th:src="|/admin/contents/files/${content.getFirstPoster().filename}|"
 					/>
 					<h6 class="card-header" th:text="${content.title}">Card header</h6>

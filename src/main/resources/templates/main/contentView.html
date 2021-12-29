@@ -46,7 +46,7 @@
 						<img sec:authorize-expr="isAuthenticated()" th:src="${session.member.picture}"/>
 					</button>
 					<ul id="dropDown" class="hidden">
-						<li sec:authorize-expr="hasRole('MEMBER')"><a href="#" style="text-decoration: none">새 글 작성</a>
+						<li sec:authorize-expr="hasRole('MEMBER')"><a href="/member/reviews/write" style="text-decoration: none">새 글 작성</a>
 						</li>
 						<li sec:authorize="hasRole('MEMBER')"><a href="/member/contents" style="text-decoration: none">마이페이지</a>
 						</li>
@@ -74,7 +74,7 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link " data-bs-toggle="tab" href="/review"><h5 style="font-weight: 600">리뷰</h5></a>
+					<a class="nav-link " data-bs-toggle="tab" href="/reviews"><h5 style="font-weight: 600">리뷰</h5></a>
 				</li>
 			</ul>
 		</nav>
@@ -150,7 +150,7 @@
 						     data-bs-parent="#accordionExample" style="">
 							<div class="accordion-body">
 								<a style="text-decoration: none" href="#" th:each="genre:${content.genres}"
-								   th:text="${genre}"></a>
+								   th:text="${genre}+' '"></a>
 							</div>
 						</div>
 					</div>

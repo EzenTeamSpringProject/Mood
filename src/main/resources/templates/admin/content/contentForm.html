@@ -143,8 +143,8 @@
 						</div>
 					</fieldset>
 					<div class="form-group">
-						<label class="form-label mt-4">Poster</label>
-						<small id="help" class="form-text text-muted">포스터는 한장만 올려주세요.</small>
+						<label class="form-label mt-4">Poster</label><br>
+						<small id="help" class="form-text text-muted">포스터는 한장만 올려주세요. 수정 시 포스터를 재업로드 해주세요</small>
 						<input class="form-control" type="file" multiple="multiple" th:field="*{poster}">
 					</div>
 				</fieldset>
@@ -154,57 +154,6 @@
 				</button>
 			</form>
 		</main>
-		
-		<!--				-->
-		<!--				-->
-		<!--				-->
-		<!--				-->
-		<!--				-->
-		<!--				-->
-		<!--				<form action="" method="post" th:object="${dto}" enctype="multipart/form-data">-->
-		<!--					<input type="hidden" name="id" th:value="*{id}">-->
-		<!--					<div>-->
-		<!--						<span>제목</span><input type="text" th:field="*{title}">-->
-		<!--					</div>-->
-		<!--					<div>-->
-		<!--						<span>소개</span><textarea th:field="*{description}"></textarea>-->
-		<!--					</div>-->
-		<!--					<div>-->
-		<!--						<span>개봉일</span><input type="date" th:field="*{releaseDate}">-->
-		<!--					</div>-->
-		<!--					<div>-->
-		<!--						<span>등급</span>-->
-		<!--						<select th:field="*{rating}">-->
-		<!--							<option th:each="rat:${rates}" th:value="${rat}" th:text="${rat.getValue()}"></option>-->
-		<!--						</select>-->
-		<!--					</div>-->
-		<!--					<div>-->
-		<!--						<span>카테고리</span>-->
-		<!--						<select th:field="*{category}">-->
-		<!--							<option th:each="cate:${cates}" th:value="${cate.id}" th:text="${cate.krname}"></option>-->
-		<!--						</select>-->
-		<!--					</div>-->
-		<!--					<div>-->
-		<!--						<span>제공업체</span>-->
-		<!--						<div th:each="company:${comps}">-->
-		<!--							<span th:text="${company.krname}"></span>-->
-		<!--							<input type="checkbox" th:name="companies" th:value="${company.id}">-->
-		<!--						</div>-->
-		<!--					</div>-->
-		<!--					<div>-->
-		<!--						<span>출연진</span><input type="text" th:field="*{cast}" placeholder=",로 구분해서 입력해주세요">-->
-		<!--					</div>-->
-		<!--					<div>-->
-		<!--						<div th:each="genre:${gens}">-->
-		<!--							<span th:text="${genre.krname}"></span>-->
-		<!--							<input type="checkbox" th:name="genres" th:value="${genre.id}">-->
-		<!--						</div>-->
-		<!--					</div>-->
-		<!--					<div>-->
-		<!--						<span>포스터</span><input type="file" multiple="multiple" th:field="*{poster}">-->
-		<!--					</div>-->
-		<!--					<button type="submit">등록</button>-->
-		<!--				</form>-->
 		<script src="/js/main.js"></script>
 	</body>
 </html>

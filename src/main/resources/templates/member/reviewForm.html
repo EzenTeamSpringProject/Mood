@@ -34,7 +34,7 @@
 						<img th:src="${session.member.picture}"/>
 					</button>
 					<ul id="dropDown" class="hidden">
-						<li><a href="/member/reviews/create" style="text-decoration: none">새 글 작성</a></li>
+						<li><a href="/member/reviews/write" style="text-decoration: none">새 글 작성</a></li>
 						<li><a href="/member" style="text-decoration: none">마이페이지</a></li>
 						<li><a href="/auth/logout" style="text-decoration: none">로그아웃</a></li>
 					</ul>
@@ -62,7 +62,7 @@
 			</ul>
 		</nav>
 		<main>
-			<form th:action method="post" th:object="${post}" enctype="multipart/form-data" style="margin-top: 20px">
+			<form th:action method="post" th:object="${dto}" enctype="multipart/form-data" style="margin-top: 20px">
 				<fieldset>
 					<legend><h3 style="display:inline-block; margin-right: 20px">Review</h3></legend>
 					<div class="form-group">
@@ -77,7 +77,7 @@
 					<div class="form-group">
 						<label class="form-label mt-4">Image</label><br>
 						<small id="help" class="form-text text-muted">이미지를 올려주세요 </small>
-						<input class="form-control" type="file" multiple="multiple" name="imageFiles">
+						<input class="form-control" type="file" multiple="multiple" th:field="*{image}">
 					</div>
 				</fieldset>
 				<button type="submit" class="btn btn-primary" style="margin-top: 15px">등록</button>

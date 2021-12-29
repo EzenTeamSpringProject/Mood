@@ -6,11 +6,16 @@ import com.ezen.mood.domain.content.Content;
 import com.ezen.mood.domain.content.category.Category;
 import com.ezen.mood.domain.member.Member;
 import com.ezen.mood.domain.member.WishContent;
+import com.ezen.mood.domain.review.Review;
+import com.ezen.mood.domain.review.WishReview;
 import com.ezen.mood.dto.ContentViewDto;
+import com.ezen.mood.repository.ReviewRepository;
 import com.ezen.mood.repository.WishContentRepository;
+import com.ezen.mood.repository.WishReviewRepository;
 import com.ezen.mood.service.admin.CategoryService;
 import com.ezen.mood.service.admin.ContentService;
 import com.ezen.mood.service.common.MemberService;
+import com.ezen.mood.service.member.ReviewService;
 import com.ezen.mood.util.PosterUtilities;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +37,8 @@ public class MainController {
     private final CategoryService categoryService;
     private final MemberService memberService;
     private final WishContentRepository wishContentRepository;
+    private final ReviewService reviewService;
+    private final WishReviewRepository wishReviewRepository;
 
     /**
      *  페이지 인덱스(HOME)
@@ -82,7 +89,7 @@ public class MainController {
 
         model.addAttribute("contents",contents);
 
-        model.addAttribute("category","anime");
+        model.addAttribute("category","animation");
         return "main/genreBoard";
     }
 
@@ -113,9 +120,9 @@ public class MainController {
     public String likeContents(@RequestParam Long id,@RequestParam String uri,@LoginMember SessionMember smember) {
 
         Content content = contentService.findById(id);
-        log.info("content : {}",content);
+
         Member member = memberService.findByEmail(smember.getEmail());
-        log.info("member : {}",member);
+
 
         WishContent wc = WishContent.builder()
                 .content(content)
@@ -144,6 +151,84 @@ public class MainController {
 
         return "redirect:"+uri;
     }
+    @GetMapping("/reviews")
+    public String reviews(Model model) {
+        List<Review> reviews = reviewService.findAll();
+        model.addAttribute("category","reviews");
+        model.addAttribute("contents",reviews);
+        return "main/reviewList";
+    }
+
+    //    리뷰보기
+    @GetMapping("/reviews/{id}")
+    public String reviewView(@PathVariable Long id,Model model,@LoginMember SessionMember smember) {
+        List<Review> myReviews = reviewService.findAllOfMyReview(smember);
+        Member member = memberService.findByEmail(smember.getEmail());
+
+        Review review = reviewService.findById(id);
+        for (Review myReview : myReviews) {
+            model.addAttribute("isMine",false);
+            if(myReview.equals(review)){
+                model.addAttribute("isMine",true);
+                break;
+            }
+        }
+        if(member!=null) {
+            Member mEntity = memberService.findByEmail(member.getEmail());
+            List<WishReview> wishes = mEntity.getWishReviews();
+            for (WishReview wish : wishes) {
+                if (wish.getReview().equals(review)) {
+                    model.addAttribute("isLike", true);
+                    break;
+                }
+                model.addAttribute("isLike", false);
+            }
+        }
+        model.addAttribute("content",review);
+        return "main/reviewView";
+    }
+
+
+    @PostMapping("/reviews/like")
+    public String likeReview(@RequestParam Long id,@RequestParam String uri,@LoginMember SessionMember smember){
+        Review review = reviewService.findById(id);
+
+        Member member = memberService.findByEmail(smember.getEmail());
+
+
+        WishReview wr = WishReview.builder()
+                .review(review)
+                .member(member)
+                .build();
+
+        List<WishReview> wishes= member.getWishReviews();
+
+        if(wishes.size()==0){
+            wishReviewRepository.save(wr);
+
+        }else {
+            boolean isExist =true;
+            for (WishReview wish : wishes) {
+                if (wish.getReview().equals(review)) {
+                    wishReviewRepository.delete(wish);
+                    isExist=true;
+                    break;
+                }
+                isExist=false;
+            }
+            if (!isExist) {
+                wishReviewRepository.save(wr);
+            }
+        }
+
+        return "redirect:"+uri;
+    }
+
+
+
+
+
+
     /**
      *  로컬에 저장된 이미지 불러오기
      */

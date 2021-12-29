@@ -10,3 +10,4 @@ function handleDropDown() {
 }
 
 dropDownBtn.addEventListener('click', handleDropDown);
+
